@@ -1,0 +1,12 @@
+streamlit
+numpy
+pandas
+torch
+scikit-learn
+rdkit
+networkx
+torch_geometric
+scipy
+biopython
+xgboost
+pickle
