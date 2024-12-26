@@ -9,4 +9,3 @@ torch_geometric
 scipy
 biopython
 xgboost
-pickle
