@@ -1,0 +1,88 @@
+{
+    "gnn": {
+        "hidden_channels": 256,
+        "num_graph_features": 10368,
+        "dropout_rate": 0.5,
+        "num_epochs": 100
+    },
+    "xgb": {
+        "parameters": {
+            "objective": "reg:squarederror",
+            "base_score": null,
+            "booster": null,
+            "callbacks": null,
+            "colsample_bylevel": null,
+            "colsample_bynode": null,
+            "colsample_bytree": null,
+            "device": null,
+            "early_stopping_rounds": null,
+            "enable_categorical": false,
+            "eval_metric": null,
+            "feature_types": null,
+            "gamma": null,
+            "grow_policy": null,
+            "importance_type": null,
+            "interaction_constraints": null,
+            "learning_rate": null,
+            "max_bin": null,
+            "max_cat_threshold": null,
+            "max_cat_to_onehot": null,
+            "max_delta_step": null,
+            "max_depth": null,
+            "max_leaves": null,
+            "min_child_weight": null,
+            "missing": NaN,
+            "monotone_constraints": null,
+            "multi_strategy": null,
+            "n_estimators": null,
+            "n_jobs": null,
+            "num_parallel_tree": null,
+            "random_state": null,
+            "reg_alpha": null,
+            "reg_lambda": null,
+            "sampling_method": null,
+            "scale_pos_weight": null,
+            "subsample": null,
+            "tree_method": null,
+            "validate_parameters": null,
+            "verbosity": null
+        }
+    },
+    "svm": {
+        "kernel": "rbf",
+        "C": 1.0,
+        "epsilon": 0.1
+    },
+    "linear_regression": {
+        "coefficients": [
+            -0.3206174574199302,
+            -0.6726657605613672
+        ],
+        "intercept": 15.660409326109537
+    },
+    "evaluation_metrics": {
+        "pcc": 0.7042448931909515,
+        "mse": 0.5650222660790671,
+        "mae": 0.5058686511025645,
+        "r2": 0.49596086958553487,
+        "auc": 0.6666666666666667
+    },
+    "dataset": {
+        "train_size": 19131,
+        "test_size": 12,
+        "test_pdb_ids": [
+            "1XNX_CINPA1",
+            "1XNX_CITCO",
+            "1XNX_Clotrimazole",
+            "1XNX_PK11195",
+            "1XNX_TO901317",
+            "NewAR_DHT",
+            "NewAR_Flutamide",
+            "NewAR_MethylTestosterone",
+            "NewAR_R1881",
+            "NewAR_testosterone",
+            "NewAR_Spironolactone",
+            "NewAR_Spironolactone"
+        ]
+    }
+}

@@ -1,6 +1,6 @@
 
-REFINED_MINMAX_PATH = "/Users/arjunkaneriya/Lombardi/saved_models/min_max_values_refined.pkl"
-GENERAL_MINMAX_PATH = "/Users/arjunkaneriya/Lombardi/saved_models/general_set_model_min_max_values.pkl"
+REFINED_MINMAX_PATH = "saved_models/min_max_values_refined.pkl"
+GENERAL_MINMAX_PATH = "saved_models/general_set_model_min_max_values.pkl"
 import streamlit as st
 import pandas as pd
 import numpy as np
@@ -15,23 +15,22 @@ from GNN32noruntraining import protein_pocket_features_to_graph, ligand_features
 from DockedGNN import docked_protein_pocket_features_to_graph, docked_ligand_features_to_graph
 from DockedGNN import GNN as GNNdocked
 
-EXCEL_PATH = "/Users/arjunkaneriya/Downloads/GUI_affinities.xlsx"  
+EXCEL_PATH = "GUI_affinities.xlsx"  
 
-REFINED_GRAPH_PATH = "/Users/arjunkaneriya/Lombardi/saved_graphs/GNN32refinedset.pkl"
-GENERAL_GRAPH_PATH = "/Users/arjunkaneriya/Lombardi/saved_graphs/GeneralSet.pkl"
-REFINED_GNN_PATH = "/Users/arjunkaneriya/Lombardi/saved_models/ensemble_model_gnn.pth"
-GENERAL_GNN_PATH = "/Users/arjunkaneriya/Lombardi/saved_models/general_set_model_gnn.pth"
-REFINED_XGB_PATH = "/Users/arjunkaneriya/Lombardi/saved_models/ensemble_model_xgb.json"
-GENERAL_XGB_PATH = "/Users/arjunkaneriya/Lombardi/saved_models/general_set_model_xgb.json"
-REFINED_SVM_PATH = "/Users/arjunkaneriya/Lombardi/saved_models/ensemble_model_svm.pkl"
-GENERAL_SVM_PATH = "/Users/arjunkaneriya/Lombardi/saved_models/general_set_model_svm.pkl"
-REFINED_LR_PATH = "/Users/arjunkaneriya/Lombardi/saved_models/ensemble_model_meta.pkl"
-GENERAL_LR_PATH = "/Users/arjunkaneriya/Lombardi/saved_models/general_set_model_meta.pkl"
 
-DOCKED_GNN_PATH = "/Users/arjunkaneriya/Downloads/gnn_model.pth"
-DOCKED_XGB_PATH = "/Users/arjunkaneriya/Downloads/xgb_model.json"
-DOCKED_SVM_PATH = "/Users/arjunkaneriya/Downloads/svm_model.pkl"
-DOCKED_LR_PATH = "/Users/arjunkaneriya/Downloads/linear_regression_model.pkl"
+REFINED_GNN_PATH = "saved_models/ensemble_model_gnn.pth"
+GENERAL_GNN_PATH = "saved_models/general_set_model_gnn.pth"
+REFINED_XGB_PATH = "saved_models/ensemble_model_xgb.json"
+GENERAL_XGB_PATH = "saved_models/general_set_model_xgb.json"
+REFINED_SVM_PATH = "saved_models/ensemble_model_svm.pkl"
+GENERAL_SVM_PATH = "saved_models/general_set_model_svm.pkl"
+REFINED_LR_PATH = "saved_models/ensemble_model_meta.pkl"
+GENERAL_LR_PATH = "saved_models/general_set_model_meta.pkl"
+
+DOCKED_GNN_PATH = "gnn_model.pth"
+DOCKED_XGB_PATH = "xgb_model.json"
+DOCKED_SVM_PATH = "svm_model.pkl"
+DOCKED_LR_PATH = "linear_regression_model.pkl"
 
 
 st.set_page_config(page_title="Binding Affinity Predictor", layout="wide")
@@ -171,43 +170,43 @@ def docked_complex_testing():
             try:
                 if selected_receptor == "New AR":
                     if selected_ligand == "Spironolactone":
-                        protein_file = "/Users/arjunkaneriya/Downloads/PFAS (Ellie)/NewAR_DHT/NewAR.pdb" 
-                        ligand_file = "/Users/arjunkaneriya/Downloads/PFAS (Ellie)/NewAR_Spironolactone/Spironolactone_out.pdb"
+                        protein_file = "PFAS AR/NewAR_DHT/NewAR.pdb" 
+                        ligand_file = "PFAS AR/NewAR_Spironolactone/Spironolactone_out.pdb"
                     elif selected_ligand == "DHT":
-                        protein_file = "/Users/arjunkaneriya/Downloads/PFAS (Ellie)/NewAR_DHT/NewAR.pdb" 
-                        ligand_file = "/Users/arjunkaneriya/Downloads/PFAS (Ellie)/NewAR_DHT/2piv_C_DHT_out.pdb"
+                        protein_file = "PFAS AR/NewAR_DHT/NewAR.pdb" 
+                        ligand_file = "PFAS AR/NewAR_DHT/2piv_C_DHT_out.pdb"
                     elif selected_ligand == "Testosterone":
-                        protein_file = "/Users/arjunkaneriya/Downloads/PFAS (Ellie)/NewAR_DHT/NewAR.pdb" 
-                        ligand_file = "/Users/arjunkaneriya/Downloads/PFAS (Ellie)/NewAR_testosterone/testosterone_out.pdb"
+                        protein_file = "PFAS AR/NewAR_DHT/NewAR.pdb" 
+                        ligand_file = "PFAS AR/NewAR_testosterone/testosterone_out.pdb"
                     elif selected_ligand == "Methyltestosterone":
-                        protein_file = "/Users/arjunkaneriya/Downloads/PFAS (Ellie)/NewAR_DHT/NewAR.pdb" 
-                        ligand_file = "/Users/arjunkaneriya/Downloads/PFAS (Ellie)/NewAR_MethylTestosterone/MethylTestosterone_out.pdb"
+                        protein_file = "PFAS AR/NewAR_DHT/NewAR.pdb" 
+                        ligand_file = "PFAS AR/NewAR_MethylTestosterone/MethylTestosterone_out.pdb"
                     elif selected_ligand == "Flutamide":
-                        protein_file = "/Users/arjunkaneriya/Downloads/PFAS (Ellie)/NewAR_DHT/NewAR.pdb" 
-                        ligand_file = "/Users/arjunkaneriya/Downloads/PFAS (Ellie)/NewAR_Flutamide/Flutamide_out.pdb"
+                        protein_file = "PFAS AR/NewAR_DHT/NewAR.pdb" 
+                        ligand_file = "PFAS AR/NewAR_Flutamide/Flutamide_out.pdb"
                     elif selected_ligand == "R1881":
-                        protein_file = "/Users/arjunkaneriya/Downloads/PFAS (Ellie)/NewAR_DHT/NewAR.pdb" 
-                        ligand_file = "/Users/arjunkaneriya/Downloads/PFAS (Ellie)/NewAR_R1881/R1881_out.pdb"
+                        protein_file = "PFAS AR/NewAR_DHT/NewAR.pdb" 
+                        ligand_file = "PFAS AR/NewAR_R1881/R1881_out.pdb"
                     elif selected_ligand == "Tolfenamic Acid":
-                        protein_file = "/Users/arjunkaneriya/Downloads/PFAS (Ellie)/NewAR_DHT/NewAR.pdb" 
-                        ligand_file = "/Users/arjunkaneriya/Downloads/PFAS (Ellie)/NewAR_TolfenamicAcid/TolfenamicAcid_out.pdb"
+                        protein_file = "PFAS AR/NewAR_DHT/NewAR.pdb" 
+                        ligand_file = "PFAS AR/NewAR_TolfenamicAcid/TolfenamicAcid_out.pdb"
 
                 elif selected_receptor == "1XNX":
                     if selected_ligand == "CINPA1":
-                        protein_file = "/Users/arjunkaneriya/Downloads/PFAS (James)/1XNX_TO901317/1XNXRECEPTOR.pdb"
-                        ligand_file = "/Users/arjunkaneriya/Downloads/PFAS (James)/1XNX_CINPA1/CINPA1_out.pdb"
+                        protein_file = "PFAS CAR/1XNX_TO901317/1XNXRECEPTOR.pdb"
+                        ligand_file = "PFAS CAR/1XNX_CINPA1/CINPA1_out.pdb"
                     elif selected_ligand == "CITCO":
-                        protein_file = "/Users/arjunkaneriya/Downloads/PFAS (James)/1XNX_TO901317/1XNXRECEPTOR.pdb"
-                        ligand_file = "/Users/arjunkaneriya/Downloads/PFAS (James)/1XNX_CITCO/CITCO_out.pdb"
+                        protein_file = "PFAS CAR/1XNX_TO901317/1XNXRECEPTOR.pdb"
+                        ligand_file = "PFAS CAR/1XNX_CITCO/CITCO_out.pdb"
                     elif selected_ligand == "Clotrimazole":
-                        protein_file = "/Users/arjunkaneriya/Downloads/PFAS (James)/1XNX_TO901317/1XNXRECEPTOR.pdb"
-                        ligand_file = "/Users/arjunkaneriya/Downloads/PFAS (James)/1XNX_clotrimazole/clotrimazole_out.pdb"
+                        protein_file = "PFAS CAR/1XNX_TO901317/1XNXRECEPTOR.pdb"
+                        ligand_file = "PFAS CAR/1XNX_clotrimazole/clotrimazole_out.pdb"
                     elif selected_ligand == "TO901317":
-                        protein_file = "/Users/arjunkaneriya/Downloads/PFAS (James)/1XNX_TO901317/1XNXRECEPTOR.pdb"
-                        ligand_file = "/Users/arjunkaneriya/Downloads/PFAS (James)/1XNX_TO901317/TO901317_out.pdb"
+                        protein_file = "PFAS CAR/1XNX_TO901317/1XNXRECEPTOR.pdb"
+                        ligand_file = "PFAS CAR/1XNX_TO901317/TO901317_out.pdb"
                     elif selected_ligand == "PK11195":
-                        protein_file = "/Users/arjunkaneriya/Downloads/PFAS (James)/1XNX_TO901317/1XNXRECEPTOR.pdb"
-                        ligand_file = "/Users/arjunkaneriya/Downloads/PFAS (James)/1XNX_PK11195/PK11195_out.pdb"
+                        protein_file = "PFAS CAR/1XNX_TO901317/1XNXRECEPTOR.pdb"
+                        ligand_file = "PFAS CAR/1XNX_PK11195/PK11195_out.pdb"
 
 
                 protein_graph = docked_protein_pocket_features_to_graph(protein_file, ligand_file)
@@ -288,7 +287,7 @@ def docked_complex_testing():
 def open_testing():
     st.title("Open Testing")
 
-    st.write("In this section, users can predict the binding affinity between protein binding pocket and ligand files of their choice using either the refined or general set models.")
+    st.write("In this section, users can predict the binding affinity between protein binding pocket and ligand files of their choice using either the refined or general set models. The interface of this section appears similar to the refined and general set testing section. However, the refined and general set testing section will not allow testing on files outside of the refined and general sets - an error will be thrown. In this section, users can test the model, either from refined or general set training, on any protein-ligand complex files of their choice.")
 
     model_choice = st.radio("Select the trained model:", ("Refined Set", "General Set"))
 

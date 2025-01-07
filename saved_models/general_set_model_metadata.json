@@ -1,0 +1,14 @@
+{
+    "dataset_name": "General Set",
+    "dataset_path": "/Users/arjunkaneriya/Downloads/v2020-other-PL",
+    "preprocessing": {
+        "normalization": "Z-score",
+        "features": "Structural only"
+    },
+    "trained_models": {
+        "GNN": "/Users/arjunkaneriya/Lombardi/saved_models/general_set_model_gnn.pth",
+        "XGBoost": "/Users/arjunkaneriya/Lombardi/saved_models/general_set_model_xgb.json",
+        "SVR": "/Users/arjunkaneriya/Lombardi/saved_models/general_set_model_svr.pkl",
+        "Meta-Model": "/Users/arjunkaneriya/Lombardi/saved_models/general_set_model_meta.pkl"
+    }
+}

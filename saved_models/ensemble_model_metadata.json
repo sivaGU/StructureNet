@@ -1,0 +1,14 @@
+{
+    "dataset_name": "Refined Set",
+    "dataset_path": "/Users/arjunkaneriya/Downloads/refined-set-hydrogenated",
+    "preprocessing": {
+        "normalization": "Z-score",
+        "features": "Structural only"
+    },
+    "trained_models": {
+        "GNN": "/Users/arjunkaneriya/Lombardi/saved_models/ensemble_model_gnn.pth",
+        "XGBoost": "/Users/arjunkaneriya/Lombardi/saved_models/ensemble_model_xgb.json",
+        "SVR": "/Users/arjunkaneriya/Lombardi/saved_models/ensemble_model_svr.pkl",
+        "Meta-Model": "/Users/arjunkaneriya/Lombardi/saved_models/ensemble_model_meta.pkl"
+    }
+}
