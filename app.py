@@ -1,6 +1,3 @@
-
-REFINED_MINMAX_PATH = "saved_models/min_max_values_refined.pkl"
-GENERAL_MINMAX_PATH = "saved_models/general_set_model_min_max_values.pkl"
 import streamlit as st
 import pandas as pd
 import numpy as np
@@ -14,9 +11,10 @@ from sklearn.linear_model import LinearRegression
 from GNN32noruntraining import protein_pocket_features_to_graph, ligand_features_to_graph, GNN, extract_embeddings_2
 from DockedGNN import docked_protein_pocket_features_to_graph, docked_ligand_features_to_graph
 from DockedGNN import GNN as GNNdocked
+REFINED_MINMAX_PATH = "saved_models/min_max_values_refined.pkl"
+GENERAL_MINMAX_PATH = "saved_models/general_set_model_min_max_values.pkl"
 
 EXCEL_PATH = "GUI_affinities.xlsx"  
-
 
 REFINED_GNN_PATH = "saved_models/ensemble_model_gnn.pth"
 GENERAL_GNN_PATH = "saved_models/general_set_model_gnn.pth"
@@ -32,9 +30,21 @@ DOCKED_XGB_PATH = "xgb_model.json"
 DOCKED_SVM_PATH = "svm_model.pkl"
 DOCKED_LR_PATH = "linear_regression_model.pkl"
 
-
 st.set_page_config(page_title="Binding Affinity Predictor", layout="wide")
 
+def home_page():
+    st.markdown("<h1 style='text-align: center;'>Welcome to StructureNet's Documentation Page</h1>", unsafe_allow_html=True)
+    st.markdown(
+        "<p style='text-align: center;'>StructureNet is a GNN-based hybridized deep learing model built for protein-ligand binding affinity prediction. This Streamlit app provides documentation on how to use StructureNet's demo page and details how the model makes graphs for training and testing. Tabs in the side bar will navigate users to graph documentation and three separate model evaluation pages. Please review the citation below, which details background information on StructureNet, before navigating the webpage.</p>",
+        unsafe_allow_html=True
+    )
+    st.image("/Users/arjunkaneriya/Downloads/Untitled (23).png", use_container_width=True)  
+    st.markdown(
+        "<p style='text-align: center;'>Outline of the StructureNet Model Workflow</p>",
+        unsafe_allow_html=True
+    )
+    st.write("**Citations:**")
+    st.write("In pre-publication stage.")
 def get_binding_affinity(pdb_code):
     try:
         excel_data = pd.ExcelFile(EXCEL_PATH)
@@ -46,8 +56,31 @@ def get_binding_affinity(pdb_code):
         raise ValueError(f"Error reading Excel file: {e}")
     raise ValueError(f"PDB code {pdb_code} not found in the Excel file.")
 
+def graph_explanation():
+    st.markdown("<h1 style='text-align: center; font-size: 50px; font-weight: bold;'>Protein-Ligand Graph Representation Documentation</h1>", unsafe_allow_html=True)
+    st.markdown("<h1 style='text-align: center; font-size: 26px; font-weight: normal;'>This section contains information on how we create graphs of protein-ligand binding complexes for binding affinity prediction with StructureNet. There are two main steps we follow when building protein-ligand complex graphs: Feature Extraction and Graph Construction. In-depth explanations of the listed steps are provided below. </h1>", unsafe_allow_html=True)
+    st.write("")
+    st.image("/Users/arjunkaneriya/Downloads/Untitled (28).png", use_container_width=True) 
+    st.markdown("<h1 style='text-align: center; font-size: 20px; font-weight: normal;'>An exemplary ligand molecule (viewed in PyMOL) besides the StructureNet graph created to represent it. </h1>", unsafe_allow_html=True)
+    st.write("")
+    st.markdown("""
+    <div style="text-align: center; font-size: 20px;">
+        <b>Feature Extraction:</b> We start by reading in the protein and ligand molecules from their PDB files. Various file checks and sanitization procedures are performed to ensure the molecules are chemically valid and able to be easily processed. While the entire ligand molecule is represented in the ligand graph, the protein binding pocket graph only contains protein atoms within 5A of the ligand molecule. The locations of valid protein atoms within this cutoff are stored for later use in graph creation. Additionally, the locations and paths of bonds are stored to build edges in graph creation. Next, we calculate node (atom) and edge (bond) features from the processed protein binding pocket and ligand files. The specific features we used in StructureNet graphs are detailed in the citation available on the "Home Page" section of this application. All features are normalized immediately after graph creation using min-max normalization. Feature values are stored as floats in PyTorch tensors before being entered in graphs. After all node and edge features are calculated, we extract global structural features from the entire protein binding pocket and ligand molecules. A full list of the global features used in StructureNet is available in the citation under the "Home Page" section. When all features are calculated and stored in the proper data structures, we begin the graph creation process.
+    </div>
+    """, unsafe_allow_html=True)
+    st.write("")
+    st.markdown("""
+    <div style="text-align: center; font-size: 20px;">
+        <b>Graph Creation:</b> We use the NetworkX Python library to create graph structures of protein-ligand complexes. Each graph holds extracted features in node, edge, and graph-level spaces. We loop through every atom in the ligand moelcule and the valid protein binding pocket atom list to create nodes in the graph, creating a node for each atom and populating it with the respective feature array. Node feature arrays contain extracted values for atomic number, total degree, hybridization state, number of hydrogens, atomic mass, hydrogen bond donor/acceptor status (in binary), hydrophobicity index, electronegativity, element name (one-hot encoded), residue type (one-hot encoded), Voronoi regions, atomic coordinates, and spherical harmonics calculations. Next, we loop through the bonds in the ligand molecule and the protein binding pocket to create edges between nodes. Each edge is labeled with the respective bond feature array. Edge feature arays hold extracted values bond type, bond length, conjugation status, bond order, ring status, and intramolecular electrostatic interactions. for Finally, we add global features to the graph, which are stored as graph-level features. A detailed list of global molecular features is availble in the citation on the "Home Page" tab of this application. All graphs are converted to PyTorch Geometric "Data" objects for compatibility with the GNN model. This finalized graph is returned to the main algorithm for use in the StructureNet model.
+    </div>
+    """, unsafe_allow_html=True)
+    st.write("")
+    st.image("/Users/arjunkaneriya/Downloads/Untitled_19_2_optimized.png", use_container_width=True) 
+    st.markdown("<h1 style='text-align: center; font-size: 20px; font-weight: normal;'>A visual diagram clarifying the difference in scope between node, edge, and graph-level features.</h1>", unsafe_allow_html=True)
 def refined_and_general_set_testing():
     st.title("Refined and General Set Testing")
+
+    st.write("In this section, you will be able to test StructureNet's binding affinity predictions on the PDBBBind v.2020 general and refined sets. These protein-ligand binding complexes were used when developing and testing StructureNet, so model performance will be similar to previous model performance detailed in the citation. Since the files for the refined and general sets are too large to store on this webpage, users must download them from the provided files in StructureNet's GitHub repository and manually input them into the demo application. The output from this section will give the predicted binding affinity and the experimentally-determined binding affinity from StructureNet.")
 
     model_choice = st.radio("Select the model to use:", ("Refined Set", "General Set"))
 
@@ -153,6 +186,7 @@ def refined_and_general_set_testing():
 def docked_complex_testing():
     st.title("Docked Complex Testing")
 
+    st.write("In this section, you will be able to test StructureNet's binding affinity predictions on virtually docked protein-ligand complexes to compare our performance with existing docking algorithms. Below, users can predict the binding affinity of several receptor-ligand pairs that were docked with AutoDock Vina. ")
     receptors = ["New AR", "1XNX"]
     ligands_receptor_1 = ["Spironolactone", "DHT", "Testosterone", "Methyltestosterone", "Flutamide", "R1881", "Tolfenamic Acid"]
     ligands_receptor_2 = ["CINPA1", "CITCO", "PK11195", "Clotrimazole", "TO901317"]
@@ -388,11 +422,15 @@ def open_testing():
             st.error(f"An error occurred: {e}")
 
 st.sidebar.title("Navigation")
-page = st.sidebar.radio("Go to:", ["Refined and General Set Testing", "Docked Complex Testing", "Open Testing"])
+page = st.sidebar.radio("Go to:", ["Home", "Refined and General Set Testing", "Docked Complex Testing", "Open Testing", "Graph Representation"])
 
-if page == "Refined and General Set Testing":
+if page == "Home":
+    home_page()
+elif page == "Refined and General Set Testing":
     refined_and_general_set_testing()
 elif page == "Docked Complex Testing":
     docked_complex_testing()
 elif page == "Open Testing":
     open_testing()
+elif page == "Graph Representation":
+    graph_explanation()
