@@ -38,7 +38,7 @@ def home_page():
         "<p style='text-align: center;'>StructureNet is a GNN-based hybridized deep learing model built for protein-ligand binding affinity prediction. This Streamlit app provides documentation on how to use StructureNet's demo page and details how the model makes graphs for training and testing. Tabs in the side bar will navigate users to graph documentation and three separate model evaluation pages. Please review the citation below, which details background information on StructureNet, before navigating the webpage.</p>",
         unsafe_allow_html=True
     )
-    st.image("/Users/arjunkaneriya/Downloads/Untitled (23).png", use_container_width=True)  
+    st.image("workflow.png", use_container_width=True)  
     st.markdown(
         "<p style='text-align: center;'>Outline of the StructureNet Model Workflow</p>",
         unsafe_allow_html=True
@@ -60,7 +60,7 @@ def graph_explanation():
     st.markdown("<h1 style='text-align: center; font-size: 50px; font-weight: bold;'>Protein-Ligand Graph Representation Documentation</h1>", unsafe_allow_html=True)
     st.markdown("<h1 style='text-align: center; font-size: 26px; font-weight: normal;'>This section contains information on how we create graphs of protein-ligand binding complexes for binding affinity prediction with StructureNet. There are two main steps we follow when building protein-ligand complex graphs: Feature Extraction and Graph Construction. In-depth explanations of the listed steps are provided below. </h1>", unsafe_allow_html=True)
     st.write("")
-    st.image("/Users/arjunkaneriya/Downloads/Untitled (28).png", use_container_width=True) 
+    st.image("graphrep.png", use_container_width=True) 
     st.markdown("<h1 style='text-align: center; font-size: 20px; font-weight: normal;'>An exemplary ligand molecule (viewed in PyMOL) besides the StructureNet graph created to represent it. </h1>", unsafe_allow_html=True)
     st.write("")
     st.markdown("""
@@ -75,7 +75,7 @@ def graph_explanation():
     </div>
     """, unsafe_allow_html=True)
     st.write("")
-    st.image("/Users/arjunkaneriya/Downloads/Untitled_19_2_optimized.png", use_container_width=True) 
+    st.image("featurediagram.png", use_container_width=True) 
     st.markdown("<h1 style='text-align: center; font-size: 20px; font-weight: normal;'>A visual diagram clarifying the difference in scope between node, edge, and graph-level features.</h1>", unsafe_allow_html=True)
 def refined_and_general_set_testing():
     st.title("Refined and General Set Testing")
