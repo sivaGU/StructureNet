@@ -34,10 +34,16 @@ st.set_page_config(page_title="Binding Affinity Predictor", layout="wide")
 
 def home_page():
     st.markdown("<h1 style='text-align: center;'>Welcome to StructureNet's Documentation Page</h1>", unsafe_allow_html=True)
-    st.markdown(
-        "<p style='text-align: center;'>StructureNet is a GNN-based hybridized deep learing model built for protein-ligand binding affinity prediction. This Streamlit app provides documentation on how to use StructureNet's demo page and details how the model makes graphs for training and testing. Tabs in the side bar will navigate users to graph documentation and three separate model evaluation pages. Please review the citation below, which details background information on StructureNet, before navigating the webpage.</p>",
-        unsafe_allow_html=True
-    )
+    st.markdown("""
+    <p style='text-align: center;'>
+        StructureNet is a GNN-based hybridized deep learning model built for protein-ligand binding affinity prediction. 
+        This Streamlit app provides documentation on how to use StructureNet's demo page and details how the model makes graphs for training and testing. 
+        Tabs in the sidebar will navigate users to graph documentation and three separate model evaluation pages. 
+        Please review the citation below, which details background information on StructureNet, before navigating the webpage. 
+        All code for this web application and for StructureNet's deep learning model is freely available through this 
+        <a href='https://github.com/sivaGU/StructureNet' target='_blank' style='color: blue; text-decoration: underline;'>GitHub repository</a>.
+    </p>
+""", unsafe_allow_html=True)
     st.image("workflow.png", use_container_width=True)  
     st.markdown(
         "<p style='text-align: center;'>Outline of the StructureNet Model Workflow</p>",
@@ -187,12 +193,12 @@ def docked_complex_testing():
     st.title("Docked Complex Testing")
 
     st.write("In this section, you will be able to test StructureNet's binding affinity predictions on virtually docked protein-ligand complexes to compare our performance with existing docking algorithms. Below, users can predict the binding affinity of several receptor-ligand pairs that were docked with AutoDock Vina. ")
-    receptors = ["New AR", "1XNX"]
+    receptors = ["Androgen Receptor (AR)", "Chimeric Antigen Receptor (CAR)"]
     ligands_receptor_1 = ["Spironolactone", "DHT", "Testosterone", "Methyltestosterone", "Flutamide", "R1881", "Tolfenamic Acid"]
     ligands_receptor_2 = ["CINPA1", "CITCO", "PK11195", "Clotrimazole", "TO901317"]
 
     selected_receptor = st.selectbox("Select Receptor:", receptors)
-    if selected_receptor == "New AR":
+    if selected_receptor == "Androgen Receptor (AR)":
         selected_ligand = st.selectbox("Select Ligand:", ligands_receptor_1)
     else:
         selected_ligand = st.selectbox("Select Ligand:", ligands_receptor_2)
@@ -202,7 +208,7 @@ def docked_complex_testing():
             st.write(f"Predicting affinity for {selected_receptor} with {selected_ligand}.")
 
             try:
-                if selected_receptor == "New AR":
+                if selected_receptor == "Androgen Receptor (AR)":
                     if selected_ligand == "Spironolactone":
                         protein_file = "PFAS AR/NewAR_DHT/NewAR.pdb" 
                         ligand_file = "PFAS AR/NewAR_Spironolactone/Spironolactone_out.pdb"
@@ -225,7 +231,7 @@ def docked_complex_testing():
                         protein_file = "PFAS AR/NewAR_DHT/NewAR.pdb" 
                         ligand_file = "PFAS AR/NewAR_TolfenamicAcid/TolfenamicAcid_out.pdb"
 
-                elif selected_receptor == "1XNX":
+                elif selected_receptor == "Chimeric Antigen Receptor (CAR)":
                     if selected_ligand == "CINPA1":
                         protein_file = "PFAS CAR/1XNX_TO901317/1XNXRECEPTOR.pdb"
                         ligand_file = "PFAS CAR/1XNX_CINPA1/CINPA1_out.pdb"
@@ -422,15 +428,15 @@ def open_testing():
             st.error(f"An error occurred: {e}")
 
 st.sidebar.title("Navigation")
-page = st.sidebar.radio("Go to:", ["Home", "Refined and General Set Testing", "Docked Complex Testing", "Open Testing", "Graph Representation"])
+page = st.sidebar.radio("Go to:", ["Home", "Graph Representation", "Refined and General Set Testing", "Docked Complex Testing", "Open Testing"])
 
 if page == "Home":
     home_page()
+elif page == "Graph Representation":
+    graph_explanation()
 elif page == "Refined and General Set Testing":
     refined_and_general_set_testing()
 elif page == "Docked Complex Testing":
     docked_complex_testing()
 elif page == "Open Testing":
     open_testing()
-elif page == "Graph Representation":
-    graph_explanation()
