@@ -86,7 +86,7 @@ def graph_explanation():
 def refined_and_general_set_testing():
     st.title("Refined and General Set Testing")
 
-    st.write("In this section, you will be able to test StructureNet's binding affinity predictions on the PDBBBind v.2020 general and refined sets. These protein-ligand binding complexes were used when developing and testing StructureNet, so model performance will be similar to previous model performance detailed in the citation. Since the files for the refined and general sets are too large to store on this webpage, users must download them from the provided files in StructureNet's GitHub repository and manually input them into the demo application. The output from this section will give the predicted binding affinity and the experimentally-determined binding affinity from StructureNet.")
+    st.write("In this section, you will be able to test StructureNet's binding affinity predictions on the PDBBBind v.2020 general and refined sets. These protein-ligand binding complexes were used when developing and testing StructureNet, so model performance will be similar to previous model performance detailed in the citation. Since the files for the refined and general sets are too large to store on this webpage, users must download them from the provided files in StructureNet's GitHub repository and manually input them into the demo application. The output from this section will give the predicted binding affinity and the experimentally-determined binding affinity from StructureNet. You can download the hydrogenated refined and general sets used to develop StructureNet from the GitHub link on the 'Home' page.")
 
     model_choice = st.radio("Select the model to use:", ("Refined Set", "General Set"))
 
@@ -212,41 +212,65 @@ def docked_complex_testing():
                     if selected_ligand == "Spironolactone":
                         protein_file = "PFAS AR/NewAR_DHT/NewAR.pdb" 
                         ligand_file = "PFAS AR/NewAR_Spironolactone/Spironolactone_out.pdb"
+                        vina_pred = 6.16
+                        experimental = 6.16
                     elif selected_ligand == "DHT":
                         protein_file = "PFAS AR/NewAR_DHT/NewAR.pdb" 
                         ligand_file = "PFAS AR/NewAR_DHT/2piv_C_DHT_out.pdb"
+                        vina_pred = 8.58
+                        experimental = 8.65
                     elif selected_ligand == "Testosterone":
                         protein_file = "PFAS AR/NewAR_DHT/NewAR.pdb" 
                         ligand_file = "PFAS AR/NewAR_testosterone/testosterone_out.pdb"
+                        experimental = 7.80
+                        vina_pred = 7.77
                     elif selected_ligand == "Methyltestosterone":
                         protein_file = "PFAS AR/NewAR_DHT/NewAR.pdb" 
                         ligand_file = "PFAS AR/NewAR_MethylTestosterone/MethylTestosterone_out.pdb"
+                        experimental = 7.80
+                        vina_pred = 7.77
                     elif selected_ligand == "Flutamide":
                         protein_file = "PFAS AR/NewAR_DHT/NewAR.pdb" 
                         ligand_file = "PFAS AR/NewAR_Flutamide/Flutamide_out.pdb"
+                        experimental = 7.10
+                        vina_pred = 4.11
                     elif selected_ligand == "R1881":
                         protein_file = "PFAS AR/NewAR_DHT/NewAR.pdb" 
                         ligand_file = "PFAS AR/NewAR_R1881/R1881_out.pdb"
+                        experimental = 8.51
+                        vina_pred = 8.51
                     elif selected_ligand == "Tolfenamic Acid":
                         protein_file = "PFAS AR/NewAR_DHT/NewAR.pdb" 
                         ligand_file = "PFAS AR/NewAR_TolfenamicAcid/TolfenamicAcid_out.pdb"
-
+                        experimental = 4.33
+                        vina_pred = 4.18
                 elif selected_receptor == "Chimeric Antigen Receptor (CAR)":
                     if selected_ligand == "CINPA1":
                         protein_file = "PFAS CAR/1XNX_TO901317/1XNXRECEPTOR.pdb"
                         ligand_file = "PFAS CAR/1XNX_CINPA1/CINPA1_out.pdb"
+                        experimental = 7.15
+                        vina_pred = 5.87
                     elif selected_ligand == "CITCO":
                         protein_file = "PFAS CAR/1XNX_TO901317/1XNXRECEPTOR.pdb"
                         ligand_file = "PFAS CAR/1XNX_CITCO/CITCO_out.pdb"
+                        experimental = 7.31
+                        vina_pred = 6.45
                     elif selected_ligand == "Clotrimazole":
                         protein_file = "PFAS CAR/1XNX_TO901317/1XNXRECEPTOR.pdb"
                         ligand_file = "PFAS CAR/1XNX_clotrimazole/clotrimazole_out.pdb"
+                        experimental = 6.15
+                        vina_pred = 5.57
                     elif selected_ligand == "TO901317":
                         protein_file = "PFAS CAR/1XNX_TO901317/1XNXRECEPTOR.pdb"
                         ligand_file = "PFAS CAR/1XNX_TO901317/TO901317_out.pdb"
+                        experimental = 5.66
+                        vina_pred = 7.41
                     elif selected_ligand == "PK11195":
                         protein_file = "PFAS CAR/1XNX_TO901317/1XNXRECEPTOR.pdb"
                         ligand_file = "PFAS CAR/1XNX_PK11195/PK11195_out.pdb"
+                        experimental = 6.10
+                        vina_pred = 7.55
+
 
 
                 protein_graph = docked_protein_pocket_features_to_graph(protein_file, ligand_file)
@@ -274,12 +298,6 @@ def docked_complex_testing():
                 graph.graph_attr = torch.cat(
                     [protein_graph.graph_attr.unsqueeze(0), ligand_graph.graph_attr.unsqueeze(0)], dim=1
                 )
-
-                st.write("Graph Details:")
-                st.write(f"x: {graph.x.shape if graph.x is not None else 'None'}")
-                st.write(f"edge_index: {graph.edge_index.shape if graph.edge_index is not None else 'None'}")
-                st.write(f"edge_attr: {graph.edge_attr.shape if graph.edge_attr is not None else 'None'}")
-                st.write(f"graph_attr: {graph.graph_attr.shape if graph.graph_attr is not None else 'None'}")
 
 
                 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -319,7 +337,9 @@ def docked_complex_testing():
                 stacked_features = np.column_stack([xgb_predictions, svr_predictions])
                 final_predictions = lr_model.predict(stacked_features)
 
-                st.success(f"Predicted Binding Affinity: {final_predictions[0]:.4f}")
+                st.success(f"StructureNet Predicted Binding Affinity: {final_predictions[0]:.4f}")
+                st.success(f"Vina Predicted Binding Affinity: {vina_pred}")
+                st.success(f"Experimental Binding Affinity: {experimental}")
 
             except Exception as e:
                 st.error(f"An error occurred: {e}")
