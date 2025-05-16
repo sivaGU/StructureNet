@@ -56,6 +56,7 @@ def home_page():
     )
     st.write("**Citation:**")
     st.write("Kaneriya, A.; Samudrala, M.; Ganesh, H.; Moran, J.; Dandibhotla, S.; Dakshanamurthy, S. StructureNet: Physics-Informed Hybridized Deep Learning Framework for Protein–Ligand Binding Affinity Prediction. Bioengineering 2025, 12, 505.")
+    st.write("[Click here to read the paper.](https://doi.org/10.3390/bioengineering12050505)")
 def get_binding_affinity(pdb_code):
     try:
         excel_data = pd.ExcelFile(EXCEL_PATH)
