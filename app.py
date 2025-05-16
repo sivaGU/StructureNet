@@ -44,13 +44,18 @@ def home_page():
         <a href='https://github.com/sivaGU/StructureNet' target='_blank' style='color: blue; text-decoration: underline;'>GitHub repository</a>.
     </p>
 """, unsafe_allow_html=True)
-    st.image("workflow.png", use_container_width=True)  
+    st.image("workflow.png", use_container_width=True)
     st.markdown(
         "<p style='text-align: center;'>Outline of the StructureNet Model Workflow</p>",
         unsafe_allow_html=True
     )
-    st.write("**Citations:**")
-    st.write("In pre-publication stage.")
+    st.image("graphical_abstract.jpeg", use_container_width=True)
+    st.markdown(
+        "<p style='text-align: center;'>Graphical Abstract</p>",
+        unsafe_allow_html=True
+    )
+    st.write("**Citation:**")
+    st.write("Kaneriya, A.; Samudrala, M.; Ganesh, H.; Moran, J.; Dandibhotla, S.; Dakshanamurthy, S. StructureNet: Physics-Informed Hybridized Deep Learning Framework for Protein–Ligand Binding Affinity Prediction. Bioengineering 2025, 12, 505.")
 def get_binding_affinity(pdb_code):
     try:
         excel_data = pd.ExcelFile(EXCEL_PATH)
