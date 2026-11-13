@@ -6,7 +6,7 @@ scikit-learn
 rdkit
 networkx
 torch_geometric
-scipy
+scipy<1.17
 biopython
 xgboost
 openpyxl
